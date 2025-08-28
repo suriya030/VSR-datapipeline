@@ -55,7 +55,7 @@ def process_mxf_complete_pipeline(mxf_file_path, output_folder):
 
 if __name__ == "__main__":
     # Configuration
-    mxf_file = r"movie\Beast (1).mp4"
+    mxf_file = r"A:\testing\Empuraan_looped_5x.mxf"
     output_folder = r"analysis_results"
     
     # Run pipeline
