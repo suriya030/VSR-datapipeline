@@ -56,8 +56,8 @@ def process_mxf_complete_pipeline(mxf_file_path, output_folder):
 if __name__ == "__main__":
     mxf_folder = "movie"
     output_folder = "analysis_results"
-    
-    mxf_files_to_process = [f for f in os.listdir(mxf_folder) if f.lower().endswith('.mxf')]
+        
+    mxf_files_to_process = [f for f in os.listdir(mxf_folder) ]
     
     if not mxf_files_to_process:
         print(f"{Fore.YELLOW}No .mxf files found in the '{mxf_folder}' directory.{Style.RESET_ALL}")
@@ -65,6 +65,14 @@ if __name__ == "__main__":
         print(f"Found {len(mxf_files_to_process)} MXF files to process.\n")
         
         for filename in mxf_files_to_process:
+            base_name = os.path.splitext(filename)[0]
+            expected_output_file = os.path.join(output_folder, f"{base_name}_analysis.json")
+            
+            if os.path.exists(expected_output_file):
+                print(f"{Fore.YELLOW}⏩ Skipping '{filename}': Analysis file already exists.{Style.RESET_ALL}")
+                continue
+            
+            print(f"{Fore.CYAN}{'-'*80}{Style.RESET_ALL}")
             mxf_file_path = os.path.join(mxf_folder, filename)
             analysis_data = process_mxf_complete_pipeline(mxf_file_path, output_folder)
 
