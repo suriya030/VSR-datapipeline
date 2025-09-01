@@ -54,9 +54,18 @@ def process_mxf_complete_pipeline(mxf_file_path, output_folder):
     return analysis_data
 
 if __name__ == "__main__":
-    # Configuration
-    mxf_file = r"A:\testing\Empuraan_looped_5x.mxf"
-    output_folder = r"analysis_results"
+    mxf_folder = "movie"
+    output_folder = "analysis_results"
     
-    # Run pipeline
-    analysis_data = process_mxf_complete_pipeline(mxf_file, output_folder)
+    mxf_files_to_process = [f for f in os.listdir(mxf_folder) if f.lower().endswith('.mxf')]
+    
+    if not mxf_files_to_process:
+        print(f"{Fore.YELLOW}No .mxf files found in the '{mxf_folder}' directory.{Style.RESET_ALL}")
+    else:
+        print(f"Found {len(mxf_files_to_process)} MXF files to process.\n")
+        
+        for filename in mxf_files_to_process:
+            mxf_file_path = os.path.join(mxf_folder, filename)
+            analysis_data = process_mxf_complete_pipeline(mxf_file_path, output_folder)
+
+        print_header("✅ ALL FILES PROCESSED")
