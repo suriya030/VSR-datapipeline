@@ -4,10 +4,10 @@ from colorama import Fore, Style
 # Import all modules
 from video_reader import read_mxf_video
 from scene_detector import find_and_split_scenes
-from quality_analyzer import initialize_quality_metrics, find_sequence_per_scene
+from quality_analyzer import initialize_quality_metrics, find_sequence_per_scene,find_sequences_per_scene_niqe_only
 from data_exporter import save_analysis_json
 from utils import print_header, print_step, print_success, get_base_filename
-from config import DEVICE
+from config import DEVICE,QUALITY_ANALYSIS
 
 def process_mxf_complete_pipeline(mxf_file_path, output_folder):
     """Complete MXF analysis pipeline: read video, detect scenes, analyze frame quality"""
@@ -28,14 +28,10 @@ def process_mxf_complete_pipeline(mxf_file_path, output_folder):
     
     # Step 4: Analyze frame quality per scene
     base_video_name = get_base_filename(mxf_file_path)
-    scene_results = find_sequence_per_scene(
-        frames_list, 
-        scenes_info,
-        base_video_name,
-        musiq_metric, 
-        niqe_metric, 
-        device
-    )
+    if QUALITY_ANALYSIS['use_musiq']:
+        scene_results = find_sequence_per_scene(frames_list, scenes_info, base_video_name, musiq_metric, niqe_metric, device)
+    else:
+        scene_results = find_sequences_per_scene_niqe_only(frames_list, scenes_info, base_video_name, niqe_metric, device)
     
     # Step 5: Save results
     print_step(4, "Saving analysis results")

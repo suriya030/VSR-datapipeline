@@ -15,6 +15,7 @@ SCENE_DETECTION = {
 # Quality analysis settings
 QUALITY_ANALYSIS = {
     'sequence_length': 15,
+    'use_musiq': False,  # Set to False to use NIQE-only
     'musiq_threshold': 35.0,
     'niqe_threshold': 6.0,
     'min_frame_variance': 10.0
@@ -26,4 +27,4 @@ OUTPUT = {
 }
 
 # Device settings
-DEVICE = 'auto'  # 'auto', 'cuda', or 'cpu'
+DEVICE = 'cuda'  # 'auto', 'cuda', or 'cpu'
