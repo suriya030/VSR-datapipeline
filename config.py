@@ -27,4 +27,4 @@ OUTPUT = {
 }
 
 # Device settings
-DEVICE = 'cuda'  # 'auto', 'cuda', or 'cpu'
+DEVICE = 'auto'  # 'auto', 'cuda', or 'cpu'
